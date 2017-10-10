@@ -21,7 +21,7 @@ group.route('/new', {
   name: 'segments/new',
   action() {
     mount(MainLayout, {
-      content: <SegmentsForm />,
+      content: <SegmentsForm kind="customer" />,
     });
   },
 });
@@ -30,7 +30,7 @@ group.route('/edit/:id', {
   name: 'segments/edit',
   action(params) {
     mount(MainLayout, {
-      content: <SegmentsForm id={params.id} />,
+      content: <SegmentsForm kind="customer" id={params.id} />,
     });
   },
 });
