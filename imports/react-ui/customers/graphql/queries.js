@@ -6,9 +6,12 @@ const customerFields = `
     isUser
     integrationId
     createdAt
+
+    customFieldsData
     messengerData
     twitterData
     facebookData
+
     tagIds
     internalNotes
     getTags {
@@ -92,5 +95,14 @@ export const tags = `
 export const totalCustomersCount = `
   query totalCustomersCount {
     customersTotalCount
+  }
+`;
+
+export const fields = `
+  query {
+    fields(contentType: "customer") {
+      _id
+      text
+    }
   }
 `;

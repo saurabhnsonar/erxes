@@ -6,6 +6,7 @@ import { Manage as ManageFields } from '/imports/react-ui/fields/containers';
 
 const propTypes = {
   customer: PropTypes.object.isRequired,
+  customFields: PropTypes.array.isRequired,
   save: PropTypes.func.isRequired,
 };
 
@@ -19,15 +20,23 @@ class Form extends React.Component {
   onSubmit(e) {
     e.preventDefault();
 
+    const customFieldsData = {};
+
+    this.props.customFields.forEach(field => {
+      customFieldsData[field._id] = document.getElementById(field._id).value;
+    });
+
     this.props.save({
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
+      customFieldsData,
     });
   }
 
   render() {
-    const { customer } = this.props;
+    const { customer, customFields } = this.props;
+    const customFieldsData = customer.customFieldsData || {};
 
     const breadcrumb = [
       { title: 'Customers', link: FlowRouter.path('customers/list') },
@@ -51,6 +60,13 @@ class Form extends React.Component {
             <label>Phone</label>
             <input id="phone" defaultValue={customer.phone} />
           </p>
+
+          {customFields.map((field, index) => (
+            <p key={index}>
+              <label>{field.text}</label>
+              <input id={field._id} defaultValue={customFieldsData[field._id]} />
+            </p>
+          ))}
 
           <button>Submit</button>
         </form>

@@ -6,9 +6,9 @@ import { Loading } from '/imports/react-ui/common';
 import { queries, mutations } from '../graphql';
 
 const CustomerFormContainer = props => {
-  const { id, customerDetailQuery, customersEdit } = props;
+  const { id, customerDetailQuery, customersEdit, fieldsQuery } = props;
 
-  if (customerDetailQuery.loading) {
+  if (customerDetailQuery.loading || fieldsQuery.loading) {
     return <Loading title="Customers" sidebarSize="wide" spin hasRightSidebar />;
   }
 
@@ -19,6 +19,7 @@ const CustomerFormContainer = props => {
   const updatedProps = {
     ...props,
     save,
+    customFields: fieldsQuery.fields,
     customer: customerDetailQuery.customerDetail,
   };
 
@@ -28,6 +29,7 @@ const CustomerFormContainer = props => {
 CustomerFormContainer.propTypes = {
   id: PropTypes.string,
   customerDetailQuery: PropTypes.object,
+  fieldsQuery: PropTypes.object,
   customersEdit: PropTypes.func,
 };
 
@@ -42,5 +44,8 @@ export default compose(
   }),
   graphql(gql(mutations.customersEdit), {
     name: 'customersEdit',
+  }),
+  graphql(gql(queries.fields), {
+    name: 'fieldsQuery',
   }),
 )(CustomerFormContainer);
