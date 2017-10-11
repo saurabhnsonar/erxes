@@ -16,7 +16,6 @@ import Alert from 'meteor/erxes-notifier';
 import { Wrapper } from '/imports/react-ui/layout/components';
 import Conditions from './Conditions';
 import AddConditionButton from './AddConditionButton';
-import { Preview } from '../containers';
 
 const propTypes = {
   fields: PropTypes.array.isRequired,
@@ -243,9 +242,6 @@ class SegmentsForm extends Component {
             </Panel>
           </Col>
         </Row>
-
-        <h3>Preview</h3>
-        <Preview segment={this.state} />
       </div>
     );
 
