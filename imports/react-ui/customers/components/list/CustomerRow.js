@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import { FlowRouter } from 'meteor/kadira:flow-router';
-import { Tags } from '/imports/react-ui/common';
 
 const propTypes = {
   customer: PropTypes.object.isRequired,
-  customerFields: PropTypes.array.isRequired,
+  columnsConfig: PropTypes.array.isRequired,
   toggleBulk: PropTypes.func,
 };
 
@@ -31,7 +30,7 @@ function formatValue(value) {
   return value || 'N/A';
 }
 
-function CustomerRow({ customer, customerFields, toggleBulk }) {
+function CustomerRow({ customer, columnsConfig, toggleBulk }) {
   const onChange = e => {
     if (toggleBulk) {
       toggleBulk(customer, e.target.checked);
@@ -48,10 +47,7 @@ function CustomerRow({ customer, customerFields, toggleBulk }) {
           <i className="ion-log-in" />
         </a>
       </td>
-      {customerFields.map(({ key }) => <td key={key}>{formatValue(_.get(customer, key))}</td>)}
-      <td>
-        <Tags tags={customer.getTags} size="small" />
-      </td>
+      {columnsConfig.map(({ name }) => <td key={name}>{formatValue(_.get(customer, name))}</td>)}
     </tr>
   );
 }

@@ -30,7 +30,7 @@ group.route('/edit/:id', {
   name: 'segments/edit',
   action(params) {
     mount(MainLayout, {
-      content: <SegmentsForm kind="customer" id={params.id} />,
+      content: <SegmentsForm contentType="customer" id={params.id} />,
     });
   },
 });

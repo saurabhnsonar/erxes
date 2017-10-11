@@ -1,9 +1,7 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, gql, graphql } from 'react-apollo';
 import { Loading } from '/imports/react-ui/common';
-import { Customers } from '/imports/api/customers/customers';
 import { KIND_CHOICES } from '/imports/api/integrations/constants';
 import { TAG_TYPES } from '/imports/api/tags/constants';
 import { Bulk, pagination } from '/imports/react-ui/common';
@@ -20,6 +18,7 @@ class CustomerListContainer extends Bulk {
       brandsQuery,
       tagsQuery,
       customerCountsQuery,
+      customersListConfigQuery,
     } = this.props;
 
     if (
@@ -28,6 +27,7 @@ class CustomerListContainer extends Bulk {
       segmentsQuery.loading ||
       brandsQuery.loading ||
       customerCountsQuery.loading ||
+      customersListConfigQuery.loading ||
       tagsQuery.loading
     ) {
       return <Loading title="Customers" />;
@@ -36,13 +36,18 @@ class CustomerListContainer extends Bulk {
     const { customersTotalCount } = totalCountQuery;
     const { loadMore, hasMore } = pagination(queryParams, customersTotalCount);
 
+    let columnsConfig = customersListConfigQuery.customersListConfig;
+
+    // load config from local storage
+    const localConfig = localStorage.getItem('erxes_customer_columns_config');
+
+    if (localConfig) {
+      columnsConfig = JSON.parse(localConfig);
+    }
+
     const updatedProps = {
       ...this.props,
-      // If there's no customer fields config, all fields will be selected
-      customerFields: (Meteor.user() &&
-        Meteor.user().configs &&
-        Meteor.user().configs.customerFields) ||
-        Customers.getPublicFields(),
+      columnsConfig,
 
       customers: customersQuery.customers,
       counts: customerCountsQuery.customerCounts,
@@ -100,6 +105,9 @@ export default compose(
         type: TAG_TYPES.CUSTOMER,
       },
     }),
+  }),
+  graphql(gql(queries.customersListConfig), {
+    name: 'customersListConfigQuery',
   }),
   graphql(gql(queries.brands), { name: 'brandsQuery' }),
   graphql(gql(queries.totalCustomersCount), { name: 'totalCountQuery' }),

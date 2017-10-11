@@ -6,12 +6,11 @@ import { Pagination } from '/imports/react-ui/common';
 import { Widget } from '/imports/react-ui/engage/containers';
 import Sidebar from './sidebar/Sidebar';
 import CustomerRow from './CustomerRow';
-import { ManageColumns } from '../../containers';
 
 const propTypes = {
   customers: PropTypes.array.isRequired,
   counts: PropTypes.object.isRequired,
-  customerFields: PropTypes.array.isRequired,
+  columnsConfig: PropTypes.array.isRequired,
   segments: PropTypes.array.isRequired,
   brands: PropTypes.array.isRequired,
   integrations: PropTypes.array.isRequired,
@@ -25,7 +24,7 @@ const propTypes = {
 function CustomersList({
   customers,
   counts,
-  customerFields,
+  columnsConfig,
   segments,
   brands,
   integrations,
@@ -42,17 +41,16 @@ function CustomersList({
           <tr>
             <th />
             <th>
-              <ManageColumns />
+              <a href="/customers/manage-columns">...</a>
             </th>
-            {customerFields.map(({ key, label }) => <th key={key}>{label}</th>)}
-            <th>Tags</th>
+            {columnsConfig.map(({ name, label }) => <th key={name}>{label}</th>)}
           </tr>
         </thead>
         <tbody>
           {customers.map(customer => (
             <CustomerRow
               customer={customer}
-              customerFields={customerFields}
+              columnsConfig={columnsConfig}
               key={customer._id}
               toggleBulk={toggleBulk}
             />

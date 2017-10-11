@@ -6,13 +6,13 @@ import { SegmentsForm } from '../components';
 import { queries } from '../graphql';
 
 const SegmentsFormContainer = props => {
-  const { segmentDetailQuery, headSegmentsQuery, segmentsGetFieldsQuery } = props;
+  const { segmentDetailQuery, headSegmentsQuery, combinedFieldsQuery } = props;
 
-  if (segmentDetailQuery.loading || headSegmentsQuery.loading || segmentsGetFieldsQuery.loading) {
+  if (segmentDetailQuery.loading || headSegmentsQuery.loading || combinedFieldsQuery.loading) {
     return null;
   }
 
-  const fields = segmentsGetFieldsQuery.segmentsGetFields.map(({ name, label }) => ({
+  const fields = combinedFieldsQuery.fieldsCombinedByContentType.map(({ name, label }) => ({
     _id: name,
     title: label,
     selectedBy: 'none',
@@ -42,7 +42,7 @@ const SegmentsFormContainer = props => {
 SegmentsFormContainer.propTypes = {
   segmentDetailQuery: PropTypes.object,
   headSegmentsQuery: PropTypes.object,
-  segmentsGetFieldsQuery: PropTypes.object,
+  combinedFieldsQuery: PropTypes.object,
 };
 
 export default compose(
@@ -53,10 +53,10 @@ export default compose(
     }),
   }),
   graphql(gql(queries.headSegments), { name: 'headSegmentsQuery' }),
-  graphql(gql(queries.segmentsGetFields), {
-    name: 'segmentsGetFieldsQuery',
-    options: ({ kind }) => ({
-      variables: { kind },
+  graphql(gql(queries.combinedFields), {
+    name: 'combinedFieldsQuery',
+    options: ({ contentType }) => ({
+      variables: { contentType },
     }),
   }),
 )(SegmentsFormContainer);

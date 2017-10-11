@@ -30,11 +30,8 @@ export const headSegments = `
   }
 `;
 
-export const segmentsGetFields = `
-  query segmentsGetFields($kind: String) {
-    segmentsGetFields(kind: $kind) {
-      name
-      label
-    }
+export const combinedFields = `
+  query {
+    fieldsCombinedByContentType
   }
 `;

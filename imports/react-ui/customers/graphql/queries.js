@@ -106,3 +106,13 @@ export const fields = `
     }
   }
 `;
+
+export const customersListConfig = `
+  query {
+    fieldsDefaultColumnsConfig {
+      name
+      label
+      order
+    }
+  }
+`;
