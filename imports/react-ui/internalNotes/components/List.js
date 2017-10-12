@@ -26,7 +26,7 @@ function List({ notes, remove, create }) {
             </div>
             <div className="text">{note.content}</div>
 
-            {note.createdUserId !== Meteor.userId()
+            {note.createdUserId === Meteor.userId()
               ? <i
                   className="delete ion-trash-a"
                   role="button"

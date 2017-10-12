@@ -1,6 +1,4 @@
 .customer-detail-form {
-  font-size: 11px;
-
   .sidebar-content {
     padding: 10px 20px;
 
@@ -94,6 +92,7 @@
     margin: 10px 20px;
     border: 1px solid #f9f9f9;
     border-radius: 20px;
+    position: relative;
 
     .topbar {
       padding: 10px 20px;
@@ -110,6 +109,13 @@
 
     .text {
       padding: 10px 20px;
+    }
+
+    .delete {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      color: #de8282;
     }
   }
 }
