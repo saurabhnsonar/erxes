@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { NameCard } from '/imports/react-ui/common';
 import Form from './Form';
 
 const propTypes = {
@@ -15,35 +16,30 @@ function List({ notes, remove, create }) {
     <div>
       <Form create={create} />
 
-      <ul className="customers-internal-notes-list">
+      <div className="internal-notes-list">
         {notes.map(note => (
-          <li key={note._id}>
-            <div className="note">{note.content}</div>
-            <div className="meta">
-              <div className="pull-left">
-                <span className="who">
-                  {note.createdUser.details.fullName} /{' '}
-                </span>
-                {' '}
-                <span className="when">{moment(note.createdDate).fromNow()}</span>
-              </div>
-              <div className="pull-right">
-                {note.createdUserId === Meteor.userId()
-                  ? <i
-                      className="delete ion-trash-a"
-                      role="button"
-                      onClick={() => {
-                        if (confirm('Are you sure to delete this note?')) {
-                          remove(note._id);
-                        }
-                      }}
-                    />
-                  : null}
-              </div>
+          <div key={note._id} className="item">
+            <div className="topbar">
+              <NameCard user={note.createdUser} avatarSize={50} />
+              <div className="date">{moment(note.createdDate).fromNow()}</div>
+              <div className="clearfix" />
             </div>
-          </li>
+            <div className="text">{note.content}</div>
+
+            {note.createdUserId !== Meteor.userId()
+              ? <i
+                  className="delete ion-trash-a"
+                  role="button"
+                  onClick={() => {
+                    if (confirm('Are you sure to delete this note?')) {
+                      remove(note._id);
+                    }
+                  }}
+                />
+              : null}
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

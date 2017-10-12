@@ -5,6 +5,7 @@ export const internalNotes = `
       content
       createdUserId
       createdUser {
+        username
         details
       }
     }
