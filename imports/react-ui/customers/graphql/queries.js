@@ -39,6 +39,10 @@ export const customerDetail = `
   query customerDetail($_id: String!) {
     customerDetail(_id: $_id) {
       ${customerFields}
+      companies {
+        _id
+        name
+      }
       conversations {
         _id
         content
