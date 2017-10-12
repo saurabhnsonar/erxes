@@ -40,7 +40,7 @@ ManageColumnsContainer.propTypes = {
 };
 
 export default compose(
-  graphql(gql(queries.fields), {
+  graphql(gql(queries.fieldsCombinedByContentType), {
     name: 'fieldsQuery',
     options: ({ contentType }) => {
       return {

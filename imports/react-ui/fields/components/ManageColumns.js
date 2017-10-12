@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 import PropTypes from 'prop-types';
+import { Wrapper } from '/imports/react-ui/layout/components';
 
 const DragHandle = SortableHandle(() => <span className="drag-handler">::::</span>);
 
@@ -73,18 +74,24 @@ class ManageColumns extends Component {
   render() {
     const { config } = this.props;
 
-    return (
-      <form onSubmit={this.onSubmit}>
+    const content = (
+      <form onSubmit={this.onSubmit} className="manage-columns">
+        <button type="submit" className="action-btn btn btn-success">
+          <i className="ion-checkmark-circled" /> Save changes
+        </button>
+
         <SortableList
           fields={this.state.fields}
           config={config}
           onSortEnd={this.onSortEnd}
           useDragHandle
         />
-
-        <button type="submit">Save</button>
       </form>
     );
+
+    const breadcrumb = [{ title: 'Manage columns' }];
+
+    return <Wrapper header={<Wrapper.Header breadcrumb={breadcrumb} />} content={content} />;
   }
 }
 

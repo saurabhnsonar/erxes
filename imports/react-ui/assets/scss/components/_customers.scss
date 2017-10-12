@@ -63,3 +63,30 @@
     }
   }
 }
+
+.manage-columns {
+  padding: 20px 0px;
+  width: 50%;
+
+  ul {
+    padding: 0px;
+    margin-left: 20px;
+
+    li {
+      padding: 10px 20px;
+      border: 1px dotted #ddd;
+      margin-bottom: 2px;
+      cursor: pointer;
+
+      input {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  button {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+}

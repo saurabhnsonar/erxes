@@ -13,6 +13,12 @@ export const fields = `
   }
 `;
 
+export const fieldsCombinedByContentType = `
+  query {
+    fieldsCombinedByContentType
+  }
+`;
+
 export const fieldsDefaultColumnsConfig = `
   query {
     fieldsDefaultColumnsConfig {
