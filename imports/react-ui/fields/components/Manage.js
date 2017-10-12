@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Col,
-  Row,
   FormGroup,
   ControlLabel,
   FormControl,
@@ -12,6 +11,7 @@ import {
   ButtonGroup,
   Button,
 } from 'react-bootstrap';
+import { Wrapper } from '/imports/react-ui/layout/components';
 import FieldsPreview from './FieldsPreview';
 
 const editingFieldDefaultValue = {
@@ -258,23 +258,25 @@ class Manage extends Component {
   }
 
   render() {
-    return (
-      <div className="form-builder margined">
-        <Row>
-          <Col sm={5} className="fixed">
-            {this.renderForm()}
-          </Col>
+    const breadcrumb = [{ title: 'Manage fields' }];
 
-          <Col sm={7} xsOffset={5}>
-            <FieldsPreview
-              fields={this.state.fields}
-              onFieldEdit={this.onFieldEdit}
-              onSort={this.props.onSort}
-            />
-          </Col>
-        </Row>
+    const content = (
+      <div className="form-builder margined">
+        <Col sm={5} className="fixed">
+          {this.renderForm()}
+        </Col>
+
+        <Col sm={7} xsOffset={5}>
+          <FieldsPreview
+            fields={this.state.fields}
+            onFieldEdit={this.onFieldEdit}
+            onSort={this.props.onSort}
+          />
+        </Col>
       </div>
     );
+
+    return <Wrapper header={<Wrapper.Header breadcrumb={breadcrumb} />} content={content} />;
   }
 }
 

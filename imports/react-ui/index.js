@@ -2,6 +2,7 @@
  * Routes
  */
 import './layout/routes';
+import './fields/routes';
 import './customers/routes';
 import './auth/routes';
 import './inbox/routes';

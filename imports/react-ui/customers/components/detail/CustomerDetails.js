@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Button } from 'react-bootstrap';
 import { Wrapper } from '/imports/react-ui/layout/components';
-import { Manage as ManageFields } from '/imports/react-ui/fields/containers';
 
 const propTypes = {
   customer: PropTypes.object.isRequired,
@@ -84,6 +83,10 @@ class CustomerDetails extends React.Component {
               <input id={field._id} defaultValue={customFieldsData[field._id]} />
             </p>
           ))}
+
+          <a className="customize-properties" href="/fields/manage/customer">
+            Customize
+          </a>
         </div>
       </Section>
     );
@@ -112,7 +115,7 @@ class CustomerDetails extends React.Component {
 
     const content = (
       <div>
-        <ManageFields contentType="customer" />
+        content
       </div>
     );
 
