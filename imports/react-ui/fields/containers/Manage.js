@@ -2,6 +2,7 @@ import { _ } from 'meteor/underscore';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, gql, graphql } from 'react-apollo';
+import Alert from 'meteor/erxes-notifier';
 import { Manage } from '../components';
 import { queries, mutations } from '../graphql';
 
@@ -34,13 +35,18 @@ const ManageContainer = props => {
         contentType,
         ...doc,
       },
-    }).then(() => fieldsQuery.refetch());
+    }).then(() => {
+      fieldsQuery.refetch();
+      Alert.success('Success');
+    });
   };
 
   // edit field
   const editField = (_id, doc) => {
     fieldsEdit({
       variables: { _id, ...doc },
+    }).then(() => {
+      Alert.success('Success');
     });
   };
 
@@ -49,7 +55,10 @@ const ManageContainer = props => {
     if (confirm('Are you sure ?')) {
       fieldsRemove({
         variables: { _id },
-      }).then(() => fieldsQuery.refetch());
+      }).then(() => {
+        fieldsQuery.refetch();
+        Alert.success('Success');
+      });
     }
   };
 

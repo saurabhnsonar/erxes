@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, gql, graphql } from 'react-apollo';
+import Alert from 'meteor/erxes-notifier';
 import { ManageColumns } from '../components';
 import { queries } from '../graphql';
 
@@ -15,6 +16,7 @@ const ManageColumnsContainer = props => {
 
   const save = config => {
     localStorage.setItem(storageKey, JSON.stringify(config));
+    Alert.success('Success');
   };
 
   let config = fieldsDefaultColumnsConfigQuery.fieldsDefaultColumnsConfig;

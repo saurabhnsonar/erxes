@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, gql, graphql } from 'react-apollo';
+import Alert from 'meteor/erxes-notifier';
 import { Loading } from '/imports/react-ui/common';
 import { queries, mutations } from '../graphql';
 import { CustomerDetails } from '../components';
@@ -13,7 +14,11 @@ const CustomerDetailsContainer = props => {
   }
 
   const save = variables => {
-    customersEdit({ variables: { _id: id, ...variables } });
+    customersEdit({
+      variables: { _id: id, ...variables },
+    }).then(() => {
+      Alert.success('Success');
+    });
   };
 
   const updatedProps = {
