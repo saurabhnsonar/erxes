@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Wrapper } from '/imports/react-ui/layout/components';
+import { List as InternalNotes } from '/imports/react-ui/internalNotes/containers';
 import RightSidebar from './sidebar/RightSidebar';
 import LeftSidebar from './sidebar/LeftSidebar';
 
@@ -22,8 +23,23 @@ class CustomerDetails extends React.Component {
     ];
 
     const content = (
-      <div>
-        content
+      <div className="customer-detail-content">
+        <ul className="header">
+          <li className="active">
+            <a>
+              <i className="ion-email" />
+              New note
+            </a>
+          </li>
+          <li>
+            <a>
+              <i className="ion-paper-airplane" />
+              Conversations
+            </a>
+          </li>
+        </ul>
+
+        <InternalNotes contentType="customer" contentTypeId={customer._id} />
       </div>
     );
 

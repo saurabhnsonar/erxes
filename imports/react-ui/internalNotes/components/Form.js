@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormControl } from 'react-bootstrap';
 
 const propTypes = {
-  createInternalNote: PropTypes.func.isRequired,
+  create: PropTypes.func.isRequired,
 };
 
 class Form extends Component {
@@ -20,7 +20,7 @@ class Form extends Component {
 
   handleKeyDown(e) {
     if (e.keyCode == 13 && e.shiftKey == false) {
-      this.props.createInternalNote(this.state.content);
+      this.props.create(this.state.content);
     }
   }
 
@@ -33,7 +33,7 @@ class Form extends Component {
     return (
       <div className="customers-internal-notes-form">
         <form onKeyDown={this.handleKeyDown} onChange={this.handleChange}>
-          <FormControl componentClass="textarea" placeholder="Write here ..." />
+          <FormControl componentClass="textarea" placeholder="Start typing to leave a note ..." />
         </form>
       </div>
     );

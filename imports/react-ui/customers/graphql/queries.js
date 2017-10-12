@@ -13,7 +13,6 @@ const customerFields = `
     facebookData
 
     tagIds
-    internalNotes
     getTags {
       _id
       name

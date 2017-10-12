@@ -126,7 +126,7 @@ class LeftSidebar extends React.Component {
           {this.renderCompanies()}
           {this.renderCustomFields()}
 
-          <Button bsStyle="success" className="action-btn">
+          <Button type="submit" bsStyle="success" className="action-btn">
             <i className="ion-checkmark-circled" /> Save changes
           </Button>
         </form>

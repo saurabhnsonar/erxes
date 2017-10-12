@@ -90,3 +90,35 @@
     margin-bottom: 10px;
   }
 }
+
+.customer-detail-content {
+  .header {
+    padding: 10px 20px;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    li {
+      display: inline;
+      margin-right: 20px;
+      cursor: pointer;
+      padding: 10px 0px;
+
+      a {
+        color: #383838;
+
+        i {
+          margin-right: 3px;
+        }
+      }
+    }
+
+    li.active {
+      border-bottom: 2px solid;
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+}
