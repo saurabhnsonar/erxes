@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Button } from 'react-bootstrap';
 import { Wrapper } from '/imports/react-ui/layout/components';
+import RightSidebar from './sidebar/RightSidebar';
 
 const propTypes = {
   customer: PropTypes.object.isRequired,
@@ -123,6 +124,7 @@ class CustomerDetails extends React.Component {
       <Wrapper
         header={<Wrapper.Header breadcrumb={breadcrumb} />}
         leftSidebar={sidebar}
+        rightSidebar={<RightSidebar customer={customer} />}
         content={content}
       />
     );
