@@ -23,7 +23,7 @@ const ManageContainer = props => {
 
   // cloning graphql results, because in component we need to change
   // each field's attributes and it is immutable. so making it mutable
-  fieldsQuery.fields.forEach(field => {
+  fieldsQuery.fieldsCombinedByContentType.forEach(field => {
     fields.push({ ...field });
   });
 

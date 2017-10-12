@@ -3,7 +3,7 @@ import { mount } from 'react-mounter';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { MainLayout } from '../layout/containers';
 import { ManageColumns } from '../fields/containers';
-import { CustomersList, CustomerForm, CustomerDetails } from './containers';
+import { CustomersList, CustomerDetails } from './containers';
 
 const group = FlowRouter.group({
   prefix: '/customers',
@@ -14,15 +14,6 @@ group.route('/', {
   action(params, queryParams) {
     mount(MainLayout, {
       content: <CustomersList queryParams={queryParams} />,
-    });
-  },
-});
-
-group.route('/edit/:id', {
-  name: 'customers/edit',
-  action(params) {
-    mount(MainLayout, {
-      content: <CustomerForm id={params.id} />,
     });
   },
 });

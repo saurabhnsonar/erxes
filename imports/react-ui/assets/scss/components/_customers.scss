@@ -33,3 +33,27 @@
   padding-right: 20px;
   margin-bottom: 15px;
 }
+
+.customer-detail-form {
+  font-size: 11px;
+
+  .sidebar-content {
+    padding: 10px 20px;
+
+    p {
+      padding-bottom: 5px;
+    }
+
+    label {
+      display: block;
+      color: #7c98b6;
+    }
+
+    input {
+      border: none;
+      width: 100%;
+      border-bottom: 1px dotted #ddd;
+      padding-bottom: 5px;
+    }
+  }
+}
