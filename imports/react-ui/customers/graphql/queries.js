@@ -112,7 +112,7 @@ export const fields = `
 
 export const customersListConfig = `
   query {
-    fieldsDefaultColumnsConfig {
+    fieldsDefaultColumnsConfig(contentType: "customer") {
       name
       label
       order

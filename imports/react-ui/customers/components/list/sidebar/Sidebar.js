@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Wrapper } from '/imports/react-ui/layout/components';
 import { CountsByTag } from '/imports/react-ui/common';
-import Segments from './Segments';
+import { Filter as Segments } from '/imports/react-ui/segments/components';
 import Brands from './Brands';
 import Integrations from './Integrations';
 

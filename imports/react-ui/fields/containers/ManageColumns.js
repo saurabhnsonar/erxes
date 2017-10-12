@@ -54,5 +54,12 @@ export default compose(
   }),
   graphql(gql(queries.fieldsDefaultColumnsConfig), {
     name: 'fieldsDefaultColumnsConfigQuery',
+    options: ({ contentType }) => {
+      return {
+        variables: {
+          contentType,
+        },
+      };
+    },
   }),
 )(ManageColumnsContainer);

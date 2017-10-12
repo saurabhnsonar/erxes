@@ -19,6 +19,11 @@ function Navigation() {
             <i className="ion-person-stalker" />
           </a>
         </Tip>
+        <Tip placement="right" text="Companies">
+          <a href="/companies">
+            <i className="ion-briefcase" />
+          </a>
+        </Tip>
         <Tip placement="right" text="Engage">
           <a href="/engage">
             <i className="ion-paper-airplane" />

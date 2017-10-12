@@ -1,4 +1,4 @@
-.customer-detail-form {
+.cc-detail-form {
   .sidebar-content {
     padding: 10px 20px;
 
@@ -53,7 +53,7 @@
   }
 }
 
-.customer-detail-content {
+.cc-detail-content {
   .header {
     padding: 10px 20px;
     font-size: 15px;
@@ -83,6 +83,7 @@
   textarea {
     min-height: 120px;
     margin: 10px 20px;
+    width: 96%;
   }
 }
 

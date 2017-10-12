@@ -14,14 +14,14 @@ export const fields = `
 `;
 
 export const fieldsCombinedByContentType = `
-  query {
-    fieldsCombinedByContentType
+  query fieldsCombinedByContentType($contentType: String!) {
+    fieldsCombinedByContentType(contentType: $contentType)
   }
 `;
 
 export const fieldsDefaultColumnsConfig = `
-  query {
-    fieldsDefaultColumnsConfig {
+  query fieldsDefaultColumnsConfig($contentType: String!) {
+    fieldsDefaultColumnsConfig(contentType: $contentType) {
       name
       label
       order

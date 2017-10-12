@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Wrapper } from '/imports/react-ui/layout/components';
 
 const propTypes = {
-  customer: PropTypes.object.isRequired,
+  company: PropTypes.object.isRequired,
   customFields: PropTypes.array.isRequired,
   save: PropTypes.func.isRequired,
 };
@@ -27,14 +27,16 @@ class LeftSidebar extends React.Component {
 
     this.props.save({
       name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
+      size: document.getElementById('size').value,
+      industry: document.getElementById('industry').value,
+      website: document.getElementById('website').value,
+      plan: document.getElementById('plan').value,
       customFieldsData,
     });
   }
 
   renderBasicInfo() {
-    const { customer } = this.props;
+    const { company } = this.props;
     const { Sidebar } = Wrapper;
     const { Section } = Sidebar;
     const { Title } = Section;
@@ -46,54 +48,36 @@ class LeftSidebar extends React.Component {
         <div className="sidebar-content">
           <p>
             <label>Name</label>
-            <input id="name" defaultValue={customer.name} />
+            <input id="name" defaultValue={company.name} />
           </p>
 
           <p>
-            <label>Email</label>
-            <input id="email" defaultValue={customer.email} />
+            <label>Size</label>
+            <input id="size" defaultValue={company.size} />
           </p>
 
           <p>
-            <label>Phone</label>
-            <input id="phone" defaultValue={customer.phone} />
+            <label>Industry</label>
+            <input id="industry" defaultValue={company.industry} />
           </p>
-        </div>
-      </Section>
-    );
-  }
 
-  renderCompanies() {
-    const { customer } = this.props;
-    const { Sidebar } = Wrapper;
-    const { Section } = Sidebar;
-    const { Title } = Section;
+          <p>
+            <label>Website</label>
+            <input id="website" defaultValue={company.website} />
+          </p>
 
-    return (
-      <Section className="full">
-        <Title>Companies</Title>
-
-        <div className="sidebar-content">
-          {customer.companies.map((company, index) => (
-            <div key={index}>
-              <p>
-                <label>Name:</label>
-                <input value={company.name} />
-              </p>
-            </div>
-          ))}
-
-          <a className="action-link" href="/fields/manage/customer">
-            Add company
-          </a>
+          <p>
+            <label>Plan</label>
+            <input id="plan" defaultValue={company.plan} />
+          </p>
         </div>
       </Section>
     );
   }
 
   renderCustomFields() {
-    const { customer, customFields } = this.props;
-    const customFieldsData = customer.customFieldsData || {};
+    const { company, customFields } = this.props;
+    const customFieldsData = company.customFieldsData || {};
     const { Sidebar } = Wrapper;
     const { Section } = Sidebar;
     const { Title } = Section;
@@ -110,7 +94,7 @@ class LeftSidebar extends React.Component {
             </p>
           ))}
 
-          <a className="action-link" href="/fields/manage/customer">
+          <a className="action-link" href="/fields/manage/company">
             Customize
           </a>
         </div>
@@ -123,7 +107,6 @@ class LeftSidebar extends React.Component {
       <Wrapper.Sidebar size="wide">
         <form onSubmit={this.onSubmit} className="cc-detail-form">
           {this.renderBasicInfo()}
-          {this.renderCompanies()}
           {this.renderCustomFields()}
 
           <Button type="submit" bsStyle="success" className="action-btn">

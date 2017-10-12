@@ -66,7 +66,7 @@ class CustomerDetails extends React.Component {
     ];
 
     const content = (
-      <div className="customer-detail-content">
+      <div className="cc-detail-content">
         <ul className="header">
           <li className={currentTab === 'internalNotes' ? 'active' : ''}>
             <a onClick={() => this.onTabClick('internalNotes')}>

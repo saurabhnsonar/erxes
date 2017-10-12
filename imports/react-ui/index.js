@@ -4,6 +4,7 @@
 import './layout/routes';
 import './fields/routes';
 import './customers/routes';
+import './companies/routes';
 import './auth/routes';
 import './inbox/routes';
 import './home/routes';

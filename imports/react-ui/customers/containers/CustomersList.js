@@ -36,7 +36,7 @@ class CustomerListContainer extends Bulk {
     const { customersTotalCount } = totalCountQuery;
     const { loadMore, hasMore } = pagination(queryParams, customersTotalCount);
 
-    let columnsConfig = customersListConfigQuery.customersListConfig;
+    let columnsConfig = customersListConfigQuery.fieldsDefaultColumnsConfig;
 
     // load config from local storage
     const localConfig = localStorage.getItem('erxes_customer_columns_config');
