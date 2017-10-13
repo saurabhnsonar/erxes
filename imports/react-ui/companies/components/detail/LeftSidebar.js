@@ -102,11 +102,40 @@ class LeftSidebar extends React.Component {
     );
   }
 
+  renderCustomers() {
+    const { company } = this.props;
+    const { Sidebar } = Wrapper;
+    const { Section } = Sidebar;
+    const { Title } = Section;
+
+    return (
+      <Section className="full">
+        <Title>Customers</Title>
+
+        <div className="sidebar-content">
+          {company.customers.map((customer, index) => (
+            <div key={index}>
+              <p>
+                <label>Name:</label>
+                <input value={customer.name || 'N/A'} />
+              </p>
+            </div>
+          ))}
+
+          <a className="action-link" href="/fields/manage/customer">
+            Add customer
+          </a>
+        </div>
+      </Section>
+    );
+  }
+
   render() {
     return (
       <Wrapper.Sidebar size="wide">
         <form onSubmit={this.onSubmit} className="cc-detail-form">
           {this.renderBasicInfo()}
+          {this.renderCustomers()}
           {this.renderCustomFields()}
 
           <Button type="submit" bsStyle="success" className="action-btn">

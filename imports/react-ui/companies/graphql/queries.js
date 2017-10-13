@@ -26,6 +26,12 @@ export const companyDetail = `
   query companyDetail($_id: String!) {
     companyDetail(_id: $_id) {
       ${companyFields}
+
+      customers {
+        name
+        email
+        phone
+      }
     }
   }
 `;
