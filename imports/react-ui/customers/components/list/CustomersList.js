@@ -69,7 +69,7 @@ class CustomersList extends React.Component {
           <CustomerForm addCustomer={addCustomer} />
         </ModalTrigger>
 
-        <Widget customers={bulk} />
+        {bulk.length > 0 ? <Widget customers={bulk} /> : false}
       </div>
     );
 

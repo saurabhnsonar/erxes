@@ -1,3 +1,11 @@
+export const companiesAdd = `
+  mutation companiesAdd($name: String!, $website: String) {
+    companiesAdd(name: $name, website: $website) {
+      _id
+    }
+  }
+`;
+
 export const companiesEdit = `
   mutation companiesEdit(
     $_id: String!,
@@ -20,7 +28,6 @@ export const companiesEdit = `
       tagIds: $tagIds,
       customFieldsData: $customFieldsData
     ) {
-
       name
     }
   }

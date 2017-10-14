@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { Wrapper } from '/imports/react-ui/layout/components';
-import { Pagination } from '/imports/react-ui/common';
-import { Widget } from '/imports/react-ui/engage/containers';
+import { Pagination, ModalTrigger } from '/imports/react-ui/common';
 import Sidebar from './Sidebar';
 import CompanyRow from './CompanyRow';
+import CompanyForm from './CompanyForm';
 
 const propTypes = {
   companies: PropTypes.array.isRequired,
@@ -16,6 +16,7 @@ const propTypes = {
   hasMore: PropTypes.bool.isRequired,
   bulk: PropTypes.array.isRequired,
   toggleBulk: PropTypes.func.isRequired,
+  addCompany: PropTypes.func.isRequired,
 };
 
 function CompaniesList({
@@ -25,8 +26,8 @@ function CompaniesList({
   segments,
   loadMore,
   hasMore,
-  bulk,
   toggleBulk,
+  addCompany,
 }) {
   const content = (
     <Pagination hasMore={hasMore} loadMore={loadMore}>
@@ -54,14 +55,26 @@ function CompaniesList({
     </Pagination>
   );
 
-  const actionBar = <Wrapper.ActionBar left={<Widget companies={bulk} />} />;
+  const addTrigger = (
+    <Button bsStyle="link">
+      <i className="ion-plus-circled" /> New company
+    </Button>
+  );
+
+  const actionBarLeft = (
+    <ModalTrigger title="New company" trigger={addTrigger}>
+      <CompanyForm addCompany={addCompany} />
+    </ModalTrigger>
+  );
+
+  const actionBar = <Wrapper.ActionBar left={actionBarLeft} />;
   const breadcrumb = [{ title: `Companies (${counts.all})` }];
 
   return (
     <div>
       <Wrapper
         header={<Wrapper.Header breadcrumb={breadcrumb} />}
-        actionBar={bulk.length > 0 ? actionBar : false}
+        actionBar={actionBar}
         leftSidebar={<Sidebar counts={counts} segments={segments} />}
         content={content}
       />

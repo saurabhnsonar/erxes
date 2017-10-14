@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Alert from 'meteor/erxes-notifier';
 import { compose, gql, graphql } from 'react-apollo';
 import { Loading } from '/imports/react-ui/common';
 import { Bulk, pagination } from '/imports/react-ui/common';
-import { queries } from '../graphql';
+import { mutations, queries } from '../graphql';
 import { CompaniesList } from '../components';
 
 class CompanyListContainer extends Bulk {
@@ -15,6 +16,7 @@ class CompanyListContainer extends Bulk {
       segmentsQuery,
       companiesListConfigQuery,
       companyCountsQuery,
+      companiesAdd,
     } = this.props;
 
     if (
@@ -39,6 +41,17 @@ class CompanyListContainer extends Bulk {
       columnsConfig = JSON.parse(localConfig);
     }
 
+    // add customer
+    const addCompany = ({ doc, callback }) => {
+      companiesAdd({
+        variables: doc,
+      }).then(() => {
+        companiesQuery.refetch();
+        Alert.success('Success');
+        callback();
+      });
+    };
+
     const updatedProps = {
       ...this.props,
       columnsConfig,
@@ -50,6 +63,7 @@ class CompanyListContainer extends Bulk {
       hasMore,
       bulk: this.state.bulk,
       toggleBulk: this.toggleBulk,
+      addCompany,
     };
 
     return <CompaniesList {...updatedProps} />;
@@ -91,4 +105,8 @@ export default compose(
     name: 'companiesListConfigQuery',
   }),
   graphql(gql(queries.totalCompaniesCount), { name: 'totalCountQuery' }),
+  // mutations
+  graphql(gql(mutations.companiesAdd), {
+    name: 'companiesAdd',
+  }),
 )(CompanyListContainer);
