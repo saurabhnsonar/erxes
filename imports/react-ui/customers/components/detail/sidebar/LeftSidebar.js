@@ -72,8 +72,6 @@ class LeftSidebar extends React.Component {
     const { Section } = Sidebar;
     const { Title } = Section;
 
-    const addCompanyTrigger = <a className="action-link" href="#">Add company</a>;
-
     return (
       <Section className="full">
         <Title>Companies</Title>
@@ -88,7 +86,10 @@ class LeftSidebar extends React.Component {
             </div>
           ))}
 
-          <ModalTrigger title="New company" trigger={addCompanyTrigger}>
+          <ModalTrigger
+            title="New company"
+            trigger={<a className="action-link" href="#">Add company</a>}
+          >
             <CompanyForm addCompany={addCompany} />
           </ModalTrigger>
         </div>

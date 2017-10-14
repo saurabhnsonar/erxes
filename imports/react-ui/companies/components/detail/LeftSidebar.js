@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { ModalTrigger } from '/imports/react-ui/common';
 import { Wrapper } from '/imports/react-ui/layout/components';
+import { CustomerForm } from '/imports/react-ui/customers/components';
 
 const propTypes = {
   company: PropTypes.object.isRequired,
   customFields: PropTypes.array.isRequired,
   save: PropTypes.func.isRequired,
+  addCustomer: PropTypes.func.isRequired,
 };
 
 class LeftSidebar extends React.Component {
@@ -103,7 +106,7 @@ class LeftSidebar extends React.Component {
   }
 
   renderCustomers() {
-    const { company } = this.props;
+    const { company, addCustomer } = this.props;
     const { Sidebar } = Wrapper;
     const { Section } = Sidebar;
     const { Title } = Section;
@@ -122,9 +125,12 @@ class LeftSidebar extends React.Component {
             </div>
           ))}
 
-          <a className="action-link" href="/fields/manage/customer">
-            Add customer
-          </a>
+          <ModalTrigger
+            title="New customer"
+            trigger={<a className="action-link" href="#">Add customer</a>}
+          >
+            <CustomerForm addCustomer={addCustomer} />
+          </ModalTrigger>
         </div>
       </Section>
     );

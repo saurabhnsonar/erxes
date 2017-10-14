@@ -32,7 +32,7 @@ class CompanyDetails extends React.Component {
           </li>
         </ul>
 
-        {<InternalNotes contentType="company" contentTypeId={company._id} />};
+        {<InternalNotes contentType="company" contentTypeId={company._id} />}
       </div>
     );
 

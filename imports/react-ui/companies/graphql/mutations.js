@@ -32,3 +32,11 @@ export const companiesEdit = `
     }
   }
 `;
+
+export const companiesAddCustomer = `
+  mutation companiesAddCustomer($_id: String!, $name: String!, $email: String) {
+    companiesAddCustomer(_id: $_id, name: $name, email: $email) {
+      _id
+    }
+  }
+`;
