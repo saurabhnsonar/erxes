@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Alert from 'meteor/erxes-notifier';
 import { compose, gql, graphql } from 'react-apollo';
 import { Loading } from '/imports/react-ui/common';
 import { KIND_CHOICES } from '/imports/api/integrations/constants';
 import { TAG_TYPES } from '/imports/api/tags/constants';
 import { Bulk, pagination } from '/imports/react-ui/common';
-import { queries } from '../graphql';
+import { mutations, queries } from '../graphql';
 import { CustomersList } from '../components';
 
 class CustomerListContainer extends Bulk {
@@ -19,6 +20,7 @@ class CustomerListContainer extends Bulk {
       tagsQuery,
       customerCountsQuery,
       customersListConfigQuery,
+      customersAdd,
     } = this.props;
 
     if (
@@ -45,6 +47,17 @@ class CustomerListContainer extends Bulk {
       columnsConfig = JSON.parse(localConfig);
     }
 
+    // add customer
+    const addCustomer = ({ doc, callback }) => {
+      customersAdd({
+        variables: doc,
+      }).then(() => {
+        customersQuery.refetch();
+        Alert.success('Success');
+        callback();
+      });
+    };
+
     const updatedProps = {
       ...this.props,
       columnsConfig,
@@ -59,6 +72,7 @@ class CustomerListContainer extends Bulk {
       hasMore,
       bulk: this.state.bulk,
       toggleBulk: this.toggleBulk,
+      addCustomer,
     };
 
     return <CustomersList {...updatedProps} />;
@@ -111,4 +125,8 @@ export default compose(
   }),
   graphql(gql(queries.brands), { name: 'brandsQuery' }),
   graphql(gql(queries.totalCustomersCount), { name: 'totalCountQuery' }),
+  // mutations
+  graphql(gql(mutations.customersAdd), {
+    name: 'customersAdd',
+  }),
 )(CustomerListContainer);
