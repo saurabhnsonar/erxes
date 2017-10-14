@@ -29,3 +29,11 @@ export const customersEdit = `
     }
   }
 `;
+
+export const customersAddCompany = `
+  mutation customersAddCompany($_id: String!, $name: String!, $website: String) {
+    customersAddCompany(_id: $_id, name: $name, website: $website) {
+      _id
+    }
+  }
+`;

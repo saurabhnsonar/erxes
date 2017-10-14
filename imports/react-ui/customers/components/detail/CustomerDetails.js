@@ -12,6 +12,7 @@ const propTypes = {
   customFields: PropTypes.array.isRequired,
   save: PropTypes.func.isRequired,
   queryParams: PropTypes.object.isRequired,
+  addCompany: PropTypes.func.isRequired,
 };
 
 class CustomerDetails extends React.Component {

@@ -7,7 +7,7 @@ import { queries, mutations } from '../graphql';
 import { CustomerDetails } from '../components';
 
 const CustomerDetailsContainer = props => {
-  const { id, customerDetailQuery, customersEdit, fieldsQuery } = props;
+  const { id, customerDetailQuery, customersEdit, customersAddCompany, fieldsQuery } = props;
 
   if (customerDetailQuery.loading || fieldsQuery.loading) {
     return <Loading title="Customers" sidebarSize="wide" spin hasRightSidebar />;
@@ -21,6 +21,16 @@ const CustomerDetailsContainer = props => {
     });
   };
 
+  const addCompany = ({ doc, callback }) => {
+    customersAddCompany({
+      variables: { _id: id, ...doc },
+    }).then(() => {
+      customerDetailQuery.refetch();
+      Alert.success('Success');
+      callback();
+    });
+  };
+
   const updatedProps = {
     ...props,
     customer: {
@@ -28,6 +38,7 @@ const CustomerDetailsContainer = props => {
       refetch: customerDetailQuery.refetch,
     },
     save,
+    addCompany,
     customFields: fieldsQuery.fields,
   };
 
@@ -39,6 +50,7 @@ CustomerDetailsContainer.propTypes = {
   customerDetailQuery: PropTypes.object,
   fieldsQuery: PropTypes.object,
   customersEdit: PropTypes.func,
+  customersAddCompany: PropTypes.func,
 };
 
 export default compose(
@@ -50,10 +62,14 @@ export default compose(
       },
     }),
   }),
+  graphql(gql(queries.fields), {
+    name: 'fieldsQuery',
+  }),
+  // mutations
   graphql(gql(mutations.customersEdit), {
     name: 'customersEdit',
   }),
-  graphql(gql(queries.fields), {
-    name: 'fieldsQuery',
+  graphql(gql(mutations.customersAddCompany), {
+    name: 'customersAddCompany',
   }),
 )(CustomerDetailsContainer);

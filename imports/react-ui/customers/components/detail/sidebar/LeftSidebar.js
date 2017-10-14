@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
+import { ModalTrigger } from '/imports/react-ui/common';
 import { Wrapper } from '/imports/react-ui/layout/components';
+import { CompanyForm } from '/imports/react-ui/companies/components';
 
 const propTypes = {
   customer: PropTypes.object.isRequired,
   customFields: PropTypes.array.isRequired,
   save: PropTypes.func.isRequired,
+  addCompany: PropTypes.func.isRequired,
 };
 
 class LeftSidebar extends React.Component {
@@ -64,10 +67,12 @@ class LeftSidebar extends React.Component {
   }
 
   renderCompanies() {
-    const { customer } = this.props;
+    const { addCompany, customer } = this.props;
     const { Sidebar } = Wrapper;
     const { Section } = Sidebar;
     const { Title } = Section;
+
+    const addCompanyTrigger = <a className="action-link" href="#">Add company</a>;
 
     return (
       <Section className="full">
@@ -83,9 +88,9 @@ class LeftSidebar extends React.Component {
             </div>
           ))}
 
-          <a className="action-link" href="/fields/manage/customer">
-            Add company
-          </a>
+          <ModalTrigger title="New company" trigger={addCompanyTrigger}>
+            <CompanyForm addCompany={addCompany} />
+          </ModalTrigger>
         </div>
       </Section>
     );
