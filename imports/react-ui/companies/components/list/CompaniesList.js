@@ -11,7 +11,6 @@ const propTypes = {
   companies: PropTypes.array.isRequired,
   counts: PropTypes.object.isRequired,
   columnsConfig: PropTypes.array.isRequired,
-  segments: PropTypes.array.isRequired,
   loadMore: PropTypes.func.isRequired,
   hasMore: PropTypes.bool.isRequired,
   bulk: PropTypes.array.isRequired,
@@ -23,7 +22,6 @@ function CompaniesList({
   companies,
   counts,
   columnsConfig,
-  segments,
   loadMore,
   hasMore,
   toggleBulk,
@@ -75,7 +73,7 @@ function CompaniesList({
       <Wrapper
         header={<Wrapper.Header breadcrumb={breadcrumb} />}
         actionBar={actionBar}
-        leftSidebar={<Sidebar counts={counts} segments={segments} />}
+        leftSidebar={<Sidebar counts={counts} />}
         content={content}
       />
     </div>

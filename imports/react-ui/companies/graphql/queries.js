@@ -36,28 +36,6 @@ export const companyDetail = `
   }
 `;
 
-const segmentFields = `
-  _id
-  name
-  description
-  subOf
-  color
-  connector
-  conditions
-`;
-
-export const segments = `
-  query segments {
-    segments {
-      ${segmentFields}
-
-      getSubSegments {
-        ${segmentFields}
-      }
-    }
-  }
-`;
-
 export const totalCompaniesCount = `
   query totalCompaniesCount {
     companiesTotalCount

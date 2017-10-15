@@ -8,29 +8,29 @@ const group = FlowRouter.group({
   prefix: '/segments',
 });
 
-group.route('/', {
-  name: 'segments/list',
-  action() {
+group.route('/:contentType', {
+  name: 'segments/list/',
+  action({ contentType }) {
     mount(MainLayout, {
-      content: <SegmentsList />,
+      content: <SegmentsList contentType={contentType} />,
     });
   },
 });
 
-group.route('/new', {
+group.route('/new/:contentType', {
   name: 'segments/new',
-  action() {
+  action({ contentType }) {
     mount(MainLayout, {
-      content: <SegmentsForm kind="customer" />,
+      content: <SegmentsForm contentType={contentType} />,
     });
   },
 });
 
-group.route('/edit/:id', {
+group.route('/edit/:contentType/:id', {
   name: 'segments/edit',
-  action(params) {
+  action({ contentType, id }) {
     mount(MainLayout, {
-      content: <SegmentsForm contentType="customer" id={params.id} />,
+      content: <SegmentsForm contentType={contentType} id={id} />,
     });
   },
 });

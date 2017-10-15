@@ -6,14 +6,16 @@ import { Wrapper } from '/imports/react-ui/layout/components';
 import { DropdownToggle, EmptyState } from '/imports/react-ui/common';
 
 const propTypes = {
+  contentType: PropTypes.string.isRequired,
   counts: PropTypes.object.isRequired,
   segments: PropTypes.array.isRequired,
 };
 
-function Segments({ counts, segments }) {
+function Segments({ contentType, counts, segments }) {
   const { Section, filter, getActiveClass } = Wrapper.Sidebar;
 
   const orderedSegments = [];
+
   segments.filter(segment => !segment.subOf).map(segment => {
     orderedSegments.push(segment, ...segment.getSubSegments);
   });
@@ -28,8 +30,8 @@ function Segments({ counts, segments }) {
             <i className="ion-more" />
           </DropdownToggle>
           <Dropdown.Menu>
-            <MenuItem href={FlowRouter.path('segments/new')}>New segment</MenuItem>
-            <MenuItem href={FlowRouter.path('segments/list')}>Manage segments</MenuItem>
+            <MenuItem href={`/segments/new/${contentType}`}>New segment</MenuItem>
+            <MenuItem href={`/segments/${contentType}`}>Manage segments</MenuItem>
           </Dropdown.Menu>
         </Dropdown>
 

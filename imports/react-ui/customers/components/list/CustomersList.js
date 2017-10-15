@@ -12,7 +12,6 @@ const propTypes = {
   customers: PropTypes.array.isRequired,
   counts: PropTypes.object.isRequired,
   columnsConfig: PropTypes.array.isRequired,
-  segments: PropTypes.array.isRequired,
   brands: PropTypes.array.isRequired,
   integrations: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
@@ -55,7 +54,7 @@ class CustomersList extends React.Component {
   }
 
   render() {
-    const { counts, segments, brands, integrations, tags, bulk, addCustomer } = this.props;
+    const { counts, brands, integrations, tags, bulk, addCustomer } = this.props;
 
     const addTrigger = (
       <Button bsStyle="link">
@@ -82,13 +81,7 @@ class CustomersList extends React.Component {
           header={<Wrapper.Header breadcrumb={breadcrumb} />}
           actionBar={actionBar}
           leftSidebar={
-            <Sidebar
-              counts={counts}
-              segments={segments}
-              brands={brands}
-              integrations={integrations}
-              tags={tags}
-            />
+            <Sidebar counts={counts} brands={brands} integrations={integrations} tags={tags} />
           }
           content={this.renderContent()}
         />

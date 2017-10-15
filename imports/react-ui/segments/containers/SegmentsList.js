@@ -4,6 +4,7 @@ import { compose, gql, graphql } from 'react-apollo';
 import { Meteor } from 'meteor/meteor';
 import { Loader } from '/imports/react-ui/common';
 import { SegmentsList } from '../components';
+import { queries } from '../graphql';
 
 const SegmentListContainer = props => {
   const { segmentsQuery } = props;
@@ -31,33 +32,12 @@ SegmentListContainer.propTypes = {
   segmentsQuery: PropTypes.object,
 };
 
-const segmentFields = `
-  _id
-  name
-  description
-  subOf
-  color
-  connector
-  conditions
-`;
-
 export default compose(
-  graphql(
-    gql`
-      query segments {
-        segments {
-          ${segmentFields}
-          getSubSegments {
-            ${segmentFields}
-          }
-        }
-      }
-    `,
-    {
-      name: 'segmentsQuery',
-      options: () => ({
-        fetchPolicy: 'network-only',
-      }),
-    },
-  ),
+  graphql(gql(queries.segments), {
+    name: 'segmentsQuery',
+    options: ({ contentType }) => ({
+      fetchPolicy: 'network-only',
+      variables: { contentType },
+    }),
+  }),
 )(SegmentListContainer);

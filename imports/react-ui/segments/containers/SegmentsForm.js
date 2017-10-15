@@ -1,12 +1,20 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Alert from 'meteor/erxes-notifier';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import { compose, gql, graphql } from 'react-apollo';
 import { SegmentsForm } from '../components';
-import { queries } from '../graphql';
+import { mutations, queries } from '../graphql';
 
 const SegmentsFormContainer = props => {
-  const { segmentDetailQuery, headSegmentsQuery, combinedFieldsQuery } = props;
+  const {
+    contentType,
+    segmentDetailQuery,
+    headSegmentsQuery,
+    combinedFieldsQuery,
+    segmentsAdd,
+    segmentsEdit,
+  } = props;
 
   if (segmentDetailQuery.loading || headSegmentsQuery.loading || combinedFieldsQuery.loading) {
     return null;
@@ -21,28 +29,39 @@ const SegmentsFormContainer = props => {
   const segment = segmentDetailQuery.segmentDetail;
   const headSegments = headSegmentsQuery.segmentsGetHeads;
 
+  const create = ({ doc }) => {
+    segmentsAdd({ variables: { contentType, ...doc } }).then(() => {
+      Alert.success('Success');
+      FlowRouter.go(`/segments/${contentType}`);
+    });
+  };
+
+  const edit = ({ id, doc }) => {
+    segmentsEdit({ variables: { _id: id, ...doc } }).then(() => {
+      Alert.success('Success');
+      FlowRouter.go(`/segments/${contentType}`);
+    });
+  };
+
   const updatedProps = {
     ...props,
     fields,
     segment,
     headSegments,
-
-    create({ doc }, callback) {
-      Meteor.call('customers.createSegment', doc, callback);
-    },
-
-    edit({ id, doc }, callback) {
-      Meteor.call('customers.editSegment', { id, doc }, callback);
-    },
+    create,
+    edit,
   };
 
   return <SegmentsForm {...updatedProps} />;
 };
 
 SegmentsFormContainer.propTypes = {
+  contentType: PropTypes.string,
   segmentDetailQuery: PropTypes.object,
   headSegmentsQuery: PropTypes.object,
   combinedFieldsQuery: PropTypes.object,
+  segmentsAdd: PropTypes.func,
+  segmentsEdit: PropTypes.func,
 };
 
 export default compose(
@@ -58,5 +77,12 @@ export default compose(
     options: ({ contentType }) => ({
       variables: { contentType },
     }),
+  }),
+  // mutations
+  graphql(gql(mutations.segmentsAdd), {
+    name: 'segmentsAdd',
+  }),
+  graphql(gql(mutations.segmentsEdit), {
+    name: 'segmentsEdit',
   }),
 )(SegmentsFormContainer);

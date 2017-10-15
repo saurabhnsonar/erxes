@@ -7,11 +7,12 @@ import { Wrapper } from '/imports/react-ui/layout/components';
 import { Tip, ActionButtons } from '/imports/react-ui/common';
 
 const propTypes = {
+  contentType: PropTypes.string.isRequired,
   segments: PropTypes.array.isRequired,
   removeSegment: PropTypes.func.isRequired,
 };
 
-function SegmentsList({ segments, removeSegment }) {
+function SegmentsList({ contentType, segments, removeSegment }) {
   const remove = id => {
     if (confirm('Are you sure?')) {
       removeSegment(
@@ -47,10 +48,7 @@ function SegmentsList({ segments, removeSegment }) {
             <td className="text-right">
               <ActionButtons>
                 <Tip text="Edit">
-                  <Button
-                    bsStyle="link"
-                    href={FlowRouter.path('segments/edit', { id: segment._id })}
-                  >
+                  <Button bsStyle="link" href={`/segments/edit/${contentType}/${segment._id}`}>
                     <i className="ion-edit" />
                   </Button>
                 </Tip>

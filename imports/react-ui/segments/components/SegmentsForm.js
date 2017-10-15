@@ -11,13 +11,12 @@ import {
   FormControl,
   Panel,
 } from 'react-bootstrap';
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import Alert from 'meteor/erxes-notifier';
 import { Wrapper } from '/imports/react-ui/layout/components';
 import Conditions from './Conditions';
 import AddConditionButton from './AddConditionButton';
 
 const propTypes = {
+  contentType: PropTypes.string.isRequired,
   fields: PropTypes.array.isRequired,
   create: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
@@ -106,40 +105,25 @@ class SegmentsForm extends Component {
     const submit = segment ? edit : create;
     const { name, description, subOf, color, connector, conditions } = this.state;
     const params = { doc: { name, description, color, connector, conditions } };
+
     if (subOf) {
       params.doc.subOf = subOf;
     }
+
     Object.assign(params, segment ? { id: segment._id } : {});
 
-    submit(params, error => {
-      if (error) {
-        return Alert.error(error.reason);
-      }
-
-      const successMessage = segment
-        ? 'Segment is successfully changed.'
-        : 'New segment is successfully created.';
-      Alert.success(successMessage);
-      return FlowRouter.go('segments/list');
-    });
+    submit(params);
   }
 
   render() {
-    const { fields, segment } = this.props;
+    const { contentType, fields, segment } = this.props;
     const selectedFieldIds = this.state.conditions.map(c => c.field);
-
-    // Change fields' selectedBy states
-    // const changedFields = fields.map(field =>
-    //   Object.assign(field, {
-    //     selectedBy: selectedFieldIds.indexOf(field._id) > -1 ? 'all' : 'none',
-    //   }),
-    // );
 
     // Exclude fields that are already selected
     const changedFields = fields.filter(field => selectedFieldIds.indexOf(field._id) < 0);
 
     const breadcrumb = [
-      { title: 'Segments', link: '/segments' },
+      { title: 'Segments', link: `/segments/${contentType}` },
       { title: segment ? 'Edit segment' : 'New segment' },
     ];
 
@@ -150,7 +134,7 @@ class SegmentsForm extends Component {
             <Button bsStyle="link" onClick={this.save}>
               <i className="ion-checkmark-circled" /> Save
             </Button>
-            <Button bsStyle="link" href={FlowRouter.path('segments/list')}>
+            <Button bsStyle="link" href={`/segments/${contentType}`}>
               <i className="ion-close-circled" /> Cancel
             </Button>
           </ButtonGroup>

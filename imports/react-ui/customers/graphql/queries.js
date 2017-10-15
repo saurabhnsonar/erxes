@@ -54,28 +54,6 @@ export const customerDetail = `
   }
 `;
 
-const segmentFields = `
-  _id
-  name
-  description
-  subOf
-  color
-  connector
-  conditions
-`;
-
-export const segments = `
-  query segments {
-    segments {
-      ${segmentFields}
-
-      getSubSegments {
-        ${segmentFields}
-      }
-    }
-  }
-`;
-
 export const brands = `
   query brands {
     brands {

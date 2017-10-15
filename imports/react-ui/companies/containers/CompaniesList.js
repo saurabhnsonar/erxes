@@ -13,7 +13,6 @@ class CompanyListContainer extends Bulk {
       queryParams,
       companiesQuery,
       totalCountQuery,
-      segmentsQuery,
       companiesListConfigQuery,
       companyCountsQuery,
       companiesAdd,
@@ -22,7 +21,6 @@ class CompanyListContainer extends Bulk {
     if (
       companiesQuery.loading ||
       totalCountQuery.loading ||
-      segmentsQuery.loading ||
       companyCountsQuery.loading ||
       companiesListConfigQuery.loading
     ) {
@@ -58,7 +56,6 @@ class CompanyListContainer extends Bulk {
 
       counts: companyCountsQuery.companyCounts,
       companies: companiesQuery.companies,
-      segments: segmentsQuery.segments,
       loadMore,
       hasMore,
       bulk: this.state.bulk,
@@ -72,7 +69,6 @@ class CompanyListContainer extends Bulk {
 
 CompanyListContainer.propTypes = {
   companiesQuery: PropTypes.object,
-  segmentsQuery: PropTypes.object,
   totalCountQuery: PropTypes.object,
   companyCountsQuery: PropTypes.object,
 };
@@ -100,7 +96,6 @@ export default compose(
       },
     }),
   }),
-  graphql(gql(queries.segments), { name: 'segmentsQuery' }),
   graphql(gql(queries.companiesListConfig), {
     name: 'companiesListConfigQuery',
   }),
