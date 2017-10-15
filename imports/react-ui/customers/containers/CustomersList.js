@@ -49,11 +49,15 @@ class CustomerListContainer extends Bulk {
     const addCustomer = ({ doc, callback }) => {
       customersAdd({
         variables: doc,
-      }).then(() => {
-        customersQuery.refetch();
-        Alert.success('Success');
-        callback();
-      });
+      })
+        .then(() => {
+          customersQuery.refetch();
+          Alert.success('Success');
+          callback();
+        })
+        .catch(e => {
+          Alert.error(e.message);
+        });
     };
 
     const updatedProps = {

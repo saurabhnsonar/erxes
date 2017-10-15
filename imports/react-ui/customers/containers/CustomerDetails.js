@@ -16,19 +16,27 @@ const CustomerDetailsContainer = props => {
   const save = variables => {
     customersEdit({
       variables: { _id: id, ...variables },
-    }).then(() => {
-      Alert.success('Success');
-    });
+    })
+      .then(() => {
+        Alert.success('Success');
+      })
+      .catch(e => {
+        Alert.error(e.message);
+      });
   };
 
   const addCompany = ({ doc, callback }) => {
     customersAddCompany({
       variables: { _id: id, ...doc },
-    }).then(() => {
-      customerDetailQuery.refetch();
-      Alert.success('Success');
-      callback();
-    });
+    })
+      .then(() => {
+        customerDetailQuery.refetch();
+        Alert.success('Success');
+        callback();
+      })
+      .catch(e => {
+        Alert.error(e.message);
+      });
   };
 
   const updatedProps = {

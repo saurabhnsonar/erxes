@@ -20,11 +20,15 @@ const CompanyDetailsContainer = props => {
   };
 
   const addCustomer = ({ doc, callback }) => {
-    companiesAddCustomer({ variables: { _id: id, ...doc } }).then(() => {
-      companyDetailQuery.refetch();
-      Alert.success('Success');
-      callback();
-    });
+    companiesAddCustomer({ variables: { _id: id, ...doc } })
+      .then(() => {
+        companyDetailQuery.refetch();
+        Alert.success('Success');
+        callback();
+      })
+      .catch(e => {
+        Alert.error(e.message);
+      });
   };
 
   const updatedProps = {

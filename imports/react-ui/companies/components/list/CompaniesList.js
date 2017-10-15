@@ -13,26 +13,15 @@ const propTypes = {
   columnsConfig: PropTypes.array.isRequired,
   loadMore: PropTypes.func.isRequired,
   hasMore: PropTypes.bool.isRequired,
-  bulk: PropTypes.array.isRequired,
-  toggleBulk: PropTypes.func.isRequired,
   addCompany: PropTypes.func.isRequired,
 };
 
-function CompaniesList({
-  companies,
-  counts,
-  columnsConfig,
-  loadMore,
-  hasMore,
-  toggleBulk,
-  addCompany,
-}) {
+function CompaniesList({ companies, counts, columnsConfig, loadMore, hasMore, addCompany }) {
   const content = (
     <Pagination hasMore={hasMore} loadMore={loadMore}>
       <Table className="no-wrap">
         <thead>
           <tr>
-            <th />
             <th>
               <a href="/companies/manage-columns">...</a>
             </th>
@@ -41,12 +30,7 @@ function CompaniesList({
         </thead>
         <tbody>
           {companies.map(company => (
-            <CompanyRow
-              company={company}
-              columnsConfig={columnsConfig}
-              key={company._id}
-              toggleBulk={toggleBulk}
-            />
+            <CompanyRow company={company} columnsConfig={columnsConfig} key={company._id} />
           ))}
         </tbody>
       </Table>

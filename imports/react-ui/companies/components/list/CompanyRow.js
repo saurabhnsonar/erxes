@@ -7,7 +7,6 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 const propTypes = {
   company: PropTypes.object.isRequired,
   columnsConfig: PropTypes.array.isRequired,
-  toggleBulk: PropTypes.func,
 };
 
 function isTimeStamp(value) {
@@ -30,18 +29,9 @@ function formatValue(value) {
   return value || 'N/A';
 }
 
-function CompanyRow({ company, columnsConfig, toggleBulk }) {
-  const onChange = e => {
-    if (toggleBulk) {
-      toggleBulk(company, e.target.checked);
-    }
-  };
-
+function CompanyRow({ company, columnsConfig }) {
   return (
     <tr>
-      <td>
-        <input type="checkbox" onChange={onChange} />
-      </td>
       <td>
         <a href={FlowRouter.path('companies/details', { id: company._id })}>
           <i className="ion-log-in" />
