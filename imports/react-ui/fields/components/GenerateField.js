@@ -31,7 +31,7 @@ export default class GenerateField extends Component {
       <div className="check-control">
         {options.map((option, index) => (
           <div key={index}>
-            {GenerateField.renderInput({ type })}
+            {this.renderInput({ type })}
             <span>{option}</span>
           </div>
         ))}
