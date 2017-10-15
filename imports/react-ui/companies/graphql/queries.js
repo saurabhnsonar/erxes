@@ -46,7 +46,13 @@ export const fields = `
   query {
     fields(contentType: "company") {
       _id
+      type
+      validation
       text
+      description
+      options
+      isRequired
+      order
     }
   }
 `;

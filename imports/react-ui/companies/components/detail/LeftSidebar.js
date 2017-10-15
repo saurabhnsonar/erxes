@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { ModalTrigger } from '/imports/react-ui/common';
 import { Wrapper } from '/imports/react-ui/layout/components';
+import { GenerateField } from '/imports/react-ui/fields/components';
 import { CustomerForm } from '/imports/react-ui/customers/components';
 
 const propTypes = {
@@ -16,17 +17,18 @@ class LeftSidebar extends React.Component {
   constructor(props) {
     super(props);
 
+    this.customFieldsData = { ...(props.company.customFieldsData || {}) };
+
     this.onSubmit = this.onSubmit.bind(this);
+    this.onCustomFieldValueChange = this.onCustomFieldValueChange.bind(this);
+  }
+
+  onCustomFieldValueChange({ _id, value }) {
+    this.customFieldsData[_id] = value;
   }
 
   onSubmit(e) {
     e.preventDefault();
-
-    const customFieldsData = {};
-
-    this.props.customFields.forEach(field => {
-      customFieldsData[field._id] = document.getElementById(field._id).value;
-    });
 
     this.props.save({
       name: document.getElementById('name').value,
@@ -34,7 +36,7 @@ class LeftSidebar extends React.Component {
       industry: document.getElementById('industry').value,
       website: document.getElementById('website').value,
       plan: document.getElementById('plan').value,
-      customFieldsData,
+      customFieldsData: this.customFieldsData,
     });
   }
 
@@ -91,10 +93,12 @@ class LeftSidebar extends React.Component {
 
         <div className="sidebar-content">
           {customFields.map((field, index) => (
-            <p key={index}>
-              <label>{field.text}</label>
-              <input id={field._id} defaultValue={customFieldsData[field._id]} />
-            </p>
+            <GenerateField
+              field={field}
+              key={index}
+              defaultValue={customFieldsData[field._id]}
+              onValueChange={this.onCustomFieldValueChange}
+            />
           ))}
 
           <a className="action-link" href="/fields/manage/company">
